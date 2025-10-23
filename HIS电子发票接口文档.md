@@ -12,7 +12,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
-| userId | String | 是 | 用户ID | "123456" |
+| patientId | String | 是 | 患者ID | "123456" |
 | patientName | String | 否 | 患者姓名 | "唐谢关" |
 | phoneNumber | String | 否 | 手机号码 | "13800138000" |
 | startDate | String | 否 | 搜索开始日期，格式：yyyy-MM-dd | "2023-05-01" |
@@ -24,7 +24,7 @@
 
 ```json
 {
-  "userId": "123456",
+  "patientId": "123456",
   "patientName": "唐谢关",
   "phoneNumber": "13800138000",
   "startDate": "2023-05-01",
@@ -92,7 +92,7 @@
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
-| userId | String | 是 | 用户ID（用于权限校验） | "123456" |
+| patientId | String | 是 | 患者ID（用于权限校验） | "123456" |
 
 ### 2.3 请求示例
 
@@ -249,7 +249,7 @@
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
-| userId | String | 是 | 用户ID（用于权限校验） | "123456" |
+| patientId | String | 是 | 患者ID（用于权限校验） | "123456" |
 | email | String | 是 | 接收邮箱地址 | "user@example.com" |
 | emailTitle | String | 否 | 邮件标题，默认："电子发票" | "您的电子发票" |
 
@@ -258,7 +258,7 @@
 ```json
 {
   "invoiceId": "INV20240115001",
-  "userId": "123456",
+  "patientId": "123456",
   "email": "user@example.com",
   "emailTitle": "您的电子发票"
 }
@@ -304,12 +304,12 @@
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
-| userId | String | 是 | 用户ID（用于权限校验） | "123456" |
+| patientId | String | 是 | 患者ID（用于权限校验） | "123456" |
 
 ### 4.3 请求示例
 
 ```
-GET /api/invoice/download?invoiceId=INV20240115001&userId=123456
+GET /api/invoice/download?invoiceId=INV20240115001&patientId=123456
 ```
 
 ### 4.4 响应说明
@@ -414,7 +414,7 @@ curl -X POST "https://api.example.com/api/invoice/list" \
   -H "Authorization: Bearer your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "userId": "123456",
+    "patientId": "123456",
     "startDate": "2023-05-01",
     "endDate": "2023-05-31",
     "invoiceType": "OUTPATIENT"
@@ -429,7 +429,7 @@ curl -X POST "https://api.example.com/api/invoice/detail" \
   -H "Content-Type: application/json" \
   -d '{
     "invoiceId": "INV20240115001",
-    "userId": "123456"
+    "patientId": "123456"
   }'
 ```
 
@@ -441,7 +441,7 @@ curl -X POST "https://api.example.com/api/invoice/sendEmail" \
   -H "Content-Type: application/json" \
   -d '{
     "invoiceId": "INV20240115001",
-    "userId": "123456",
+    "patientId": "123456",
     "email": "user@example.com"
   }'
 ```
@@ -449,7 +449,7 @@ curl -X POST "https://api.example.com/api/invoice/sendEmail" \
 ### 9.4 下载发票
 
 ```bash
-curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&userId=123456" \
+curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&patientId=123456" \
   -H "Authorization: Bearer your_token_here" \
   --output invoice.pdf
 ```

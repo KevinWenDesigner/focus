@@ -280,10 +280,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>patientId</td>
+                    <td>userId</td>
                     <td>String</td>
                     <td><span class="badge badge-required">是</span></td>
-                    <td>患者ID</td>
+                    <td>用户ID</td>
                     <td>"123456"</td>
                 </tr>
                 <tr>
@@ -333,7 +333,7 @@
 
         <h3>1.3 请求示例</h3>
         <pre><code>{
-  "patientId": "123456",
+  "userId": "123456",
   "patientName": "唐谢关",
   "phoneNumber": "13800138000",
   "startDate": "2023-05-01",
@@ -478,10 +478,10 @@
                     <td>"INV20240115001"</td>
                 </tr>
                 <tr>
-                    <td>patientId</td>
+                    <td>userId</td>
                     <td>String</td>
                     <td><span class="badge badge-required">是</span></td>
-                    <td>患者ID（用于权限校验）</td>
+                    <td>用户ID（用于权限校验）</td>
                     <td>"123456"</td>
                 </tr>
             </tbody>
@@ -755,10 +755,10 @@
                     <td>"INV20240115001"</td>
                 </tr>
                 <tr>
-                    <td>patientId</td>
+                    <td>userId</td>
                     <td>String</td>
                     <td><span class="badge badge-required">是</span></td>
-                    <td>患者ID（用于权限校验）</td>
+                    <td>用户ID（用于权限校验）</td>
                     <td>"123456"</td>
                 </tr>
                 <tr>
@@ -781,7 +781,7 @@
         <h3>3.3 请求示例</h3>
         <pre><code>{
   "invoiceId": "INV20240115001",
-  "patientId": "123456",
+  "userId": "123456",
   "email": "user@example.com",
   "emailTitle": "您的电子发票"
 }</code></pre>
@@ -872,17 +872,17 @@
                     <td>"INV20240115001"</td>
                 </tr>
                 <tr>
-                    <td>patientId</td>
+                    <td>userId</td>
                     <td>String</td>
                     <td><span class="badge badge-required">是</span></td>
-                    <td>患者ID（用于权限校验）</td>
+                    <td>用户ID（用于权限校验）</td>
                     <td>"123456"</td>
                 </tr>
             </tbody>
         </table>
 
         <h3>4.3 请求示例</h3>
-        <pre><code>GET /api/invoice/download?invoiceId=INV20240115001&patientId=123456</code></pre>
+        <pre><code>GET /api/invoice/download?invoiceId=INV20240115001&userId=123456</code></pre>
 
         <h3>4.4 响应说明</h3>
         <ul>
@@ -1091,7 +1091,7 @@
   -H "Authorization: Bearer your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "patientId": "123456",
+    "userId": "123456",
     "startDate": "2023-05-01",
     "endDate": "2023-05-31",
     "invoiceType": "OUTPATIENT"
@@ -1103,7 +1103,7 @@
   -H "Content-Type: application/json" \
   -d '{
     "invoiceId": "INV20240115001",
-    "patientId": "123456"
+    "userId": "123456"
   }'</code></pre>
 
         <h3>9.3 发送到邮箱</h3>
@@ -1112,12 +1112,12 @@
   -H "Content-Type: application/json" \
   -d '{
     "invoiceId": "INV20240115001",
-    "patientId": "123456",
+    "userId": "123456",
     "email": "user@example.com"
   }'</code></pre>
 
         <h3>9.4 下载发票</h3>
-        <pre><code>curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&patientId=123456" \
+        <pre><code>curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&userId=123456" \
   -H "Authorization: Bearer your_token_here" \
   --output invoice.pdf</code></pre>
 
