@@ -1,0 +1,121 @@
+# ========================================
+# Java项目 .gitignore 文件
+# ========================================
+
+# Maven构建输出目录
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# ========================================
+# IDE相关文件
+# ========================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# Visual Studio Code
+.vscode/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ========================================
+# 操作系统相关
+# ========================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# ========================================
+# 日志文件
+# ========================================
+*.log
+logs/
+log/
+
+# ========================================
+# 临时文件
+# ========================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ========================================
+# 编译输出
+# ========================================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ========================================
+# 数据库文件
+# ========================================
+*.db
+*.sqlite
+
+# ========================================
+# 配置文件（可能包含敏感信息）
+# ========================================
+# 如果application.properties包含敏感信息，可以取消下面的注释
+# application-dev.properties
+# application-prod.properties
+
+# ========================================
+# 其他
+# ========================================
+# 上传的文件
+uploads/
+# PDF文件
+/data/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
