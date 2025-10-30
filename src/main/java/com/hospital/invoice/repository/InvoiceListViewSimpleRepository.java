@@ -30,3 +30,4 @@ public interface InvoiceListViewSimpleRepository extends JpaRepository<InvoiceLi
 
 
 
+

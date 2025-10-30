@@ -15,7 +15,7 @@
 **文件位置**：`src/main/java/com/hospital/invoice/dto/request/BaseRequest.java`
 
 **包含字段**：
-- `hospitalId` (String) - 医院ID（必填）
+- `hospitalCode` (String) - 医院ID（必填）
 - `hospitalName` (String) - 医院名称（必填）
 - `tickets` (String) - API网关验证票据（必填）
 
@@ -60,7 +60,7 @@ private String validateGatewayParams(BaseRequest request, String errorMessage)
 ```
 
 **验证内容**：
-- hospitalId 不能为空
+- hospitalCode 不能为空
 - hospitalName 不能为空
 - tickets 不能为空
 - 预留了tickets合法性验证接口（待实现）
@@ -78,7 +78,7 @@ private String validateGatewayParams(BaseRequest request, String errorMessage)
 - 请求体包含网关参数
 
 ✅ **下载PDF** (`/api/invoice/download`)
-- URL参数包含网关参数：`&hospitalId=H001&hospitalName=xxx&tickets=xxx`
+- URL参数包含网关参数：`&hospitalCode=H001&hospitalName=xxx&tickets=xxx`
 
 ---
 
@@ -116,7 +116,7 @@ POST /api/invoice/list
 ```json
 POST /api/invoice/list
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "your_gateway_ticket",
   "patientId": "123456"
@@ -150,7 +150,7 @@ const response = await fetch('https://api-gateway.hospital.com/auth/getTickets',
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    hospitalId: 'H001',
+    hospitalCode: 'H001',
     appKey: 'your_app_key',
     appSecret: 'your_app_secret'
   })
@@ -167,7 +167,7 @@ const requestBody = {
 
 // 更新后
 const requestBody = {
-  hospitalId: 'H001',
+  hospitalCode: 'H001',
   hospitalName: '北京协和医院',
   tickets: tickets,  // 从网关获取的tickets
   patientId: '123456'
@@ -190,8 +190,8 @@ if (response.code === 401) {
 ## 🔐 安全增强
 
 ### 1. 多医院隔离
-- 每个医院使用独立的hospitalId
-- tickets与hospitalId绑定
+- 每个医院使用独立的hospitalCode
+- tickets与hospitalCode绑定
 - 防止跨医院数据访问
 
 ### 2. 访问控制
@@ -200,7 +200,7 @@ if (response.code === 401) {
 - 支持黑名单和白名单机制
 
 ### 3. 审计追踪
-- 所有请求都记录hospitalId
+- 所有请求都记录hospitalCode
 - 便于追踪和审计
 - 支持按医院统计接口使用情况
 
@@ -215,7 +215,7 @@ if (response.code === 401) {
 curl -X POST "http://localhost:8080/api/invoice/list" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "valid_ticket",
     "patientId": "123456"
@@ -223,7 +223,7 @@ curl -X POST "http://localhost:8080/api/invoice/list" \
 ```
 **预期结果**：返回200，查询成功
 
-#### ❌ 测试2：缺少hospitalId
+#### ❌ 测试2：缺少hospitalCode
 ```bash
 curl -X POST "http://localhost:8080/api/invoice/list" \
   -H "Content-Type: application/json" \
@@ -240,7 +240,7 @@ curl -X POST "http://localhost:8080/api/invoice/list" \
 curl -X POST "http://localhost:8080/api/invoice/list" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "patientId": "123456"
   }'
@@ -255,10 +255,10 @@ curl -X POST "http://localhost:8080/api/invoice/list" \
 ```java
 @Service
 public class GatewayService {
-    public boolean validateTickets(String tickets, String hospitalId) {
+    public boolean validateTickets(String tickets, String hospitalCode) {
         // 调用网关API验证tickets
         // 检查tickets是否过期
-        // 检查tickets是否与hospitalId匹配
+        // 检查tickets是否与hospitalCode匹配
         return true;
     }
 }
@@ -266,8 +266,8 @@ public class GatewayService {
 
 ### 2. 添加tickets缓存
 ```java
-@Cacheable(value = "tickets", key = "#hospitalId")
-public String getTickets(String hospitalId) {
+@Cacheable(value = "tickets", key = "#hospitalCode")
+public String getTickets(String hospitalCode) {
     // 从网关获取tickets并缓存
 }
 ```
@@ -286,7 +286,7 @@ if (tickets.getExpiresIn() < 300) {  // 剩余5分钟
 @Autowired
 private StatisticsService statisticsService;
 
-statisticsService.recordApiCall(hospitalId, apiPath);
+statisticsService.recordApiCall(hospitalCode, apiPath);
 ```
 
 ---

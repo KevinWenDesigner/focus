@@ -79,3 +79,4 @@ public interface InvoiceDetailViewRepository extends JpaRepository<InvoiceDetail
 
 
 
+

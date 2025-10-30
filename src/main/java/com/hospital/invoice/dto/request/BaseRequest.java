@@ -10,10 +10,10 @@ package com.hospital.invoice.dto.request;
 public class BaseRequest {
     
     /**
-     * 医院ID（必填）
+     * 医院编码（必填）
      * 用于标识请求来源的医院
      */
-    private String hospitalId;
+    private String hospitalCode;
     
     /**
      * 医院名称（必填）
@@ -32,20 +32,20 @@ public class BaseRequest {
     }
     
     // 全参构造函数
-    public BaseRequest(String hospitalId, String hospitalName, String tickets) {
-        this.hospitalId = hospitalId;
+    public BaseRequest(String hospitalCode, String hospitalName, String tickets) {
+        this.hospitalCode = hospitalCode;
         this.hospitalName = hospitalName;
         this.tickets = tickets;
     }
     
     // Getter 和 Setter 方法
     
-    public String getHospitalId() {
-        return hospitalId;
+    public String getHospitalCode() {
+        return hospitalCode;
     }
     
-    public void setHospitalId(String hospitalId) {
-        this.hospitalId = hospitalId;
+    public void setHospitalCode(String hospitalCode) {
+        this.hospitalCode = hospitalCode;
     }
     
     public String getHospitalName() {
@@ -67,7 +67,7 @@ public class BaseRequest {
     @Override
     public String toString() {
         return "BaseRequest{" +
-                "hospitalId='" + hospitalId + '\'' +
+                "hospitalCode='" + hospitalCode + '\'' +
                 ", hospitalName='" + hospitalName + '\'' +
                 ", tickets='" + (tickets != null ? "***" : null) + '\'' +
                 '}';

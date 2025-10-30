@@ -8,7 +8,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
-| hospitalId | String | 是 | 医院唯一标识 | "H001" |
+| hospitalCode | String | 是 | 医院编码 | "H001" |
 | hospitalName | String | 是 | 医院名称 | "北京协和医院" |
 | tickets | String | 是 | API网关验证票据 | "your_gateway_ticket" |
 
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "patientId": "123456",
@@ -89,7 +89,7 @@ Content-Type: application/json
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "invoiceId": "INV20240115001",
@@ -146,7 +146,7 @@ Content-Type: application/json
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "invoiceId": "INV20240115001",
@@ -177,7 +177,7 @@ Content-Type: application/json
 ### 请求示例（GET请求，URL参数）
 
 ```
-GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalId=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalCode=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 ### URL参数说明
@@ -186,7 +186,7 @@ GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientI
 |--------|-----|------|
 | invoiceId | INV20240115001 | 是 |
 | patientId | 123456 | 是 |
-| hospitalId | H001 | 是 |
+| hospitalCode | H001 | 是 |
 | hospitalName | 北京协和医院 | 是 |
 | tickets | eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9... | 是 |
 
@@ -214,7 +214,7 @@ GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientI
 curl -X POST "http://localhost:8080/api/invoice/list" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "your_gateway_ticket",
     "patientId": "123456",
@@ -228,7 +228,7 @@ curl -X POST "http://localhost:8080/api/invoice/list" \
 curl -X POST "http://localhost:8080/api/invoice/detail" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "your_gateway_ticket",
     "invoiceId": "INV20240115001",
@@ -242,7 +242,7 @@ curl -X POST "http://localhost:8080/api/invoice/detail" \
 curl -X POST "http://localhost:8080/api/invoice/sendEmail" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "your_gateway_ticket",
     "invoiceId": "INV20240115001",
@@ -254,7 +254,7 @@ curl -X POST "http://localhost:8080/api/invoice/sendEmail" \
 ### 4. 下载PDF
 
 ```bash
-curl -X GET "http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalId=H001&hospitalName=北京协和医院&tickets=your_gateway_ticket" \
+curl -X GET "http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalCode=H001&hospitalName=北京协和医院&tickets=your_gateway_ticket" \
   --output invoice.pdf
 ```
 
@@ -290,12 +290,12 @@ curl -X GET "http://localhost:8080/api/invoice/download?invoiceId=INV20240115001
 }
 ```
 
-### 错误3：hospitalId与tickets不匹配
+### 错误3：hospitalCode与tickets不匹配
 
 ```json
 {
   "code": 401,
-  "message": "医院ID与票据不匹配",
+  "message": "医院编码与票据不匹配",
   "data": null
 }
 ```
@@ -305,9 +305,9 @@ curl -X GET "http://localhost:8080/api/invoice/download?invoiceId=INV20240115001
 ## 📝 注意事项
 
 1. **tickets有时效性**：通常有效期为30分钟到2小时，过期需重新申请
-2. **tickets与hospitalId绑定**：不能跨医院使用
+2. **tickets与hospitalCode绑定**：不能跨医院使用
 3. **GET请求参数编码**：URL中的中文参数需要进行URL编码
-4. **所有接口都必须包含这三个参数**：hospitalId、hospitalName、tickets
+4. **所有接口都必须包含这三个参数**：hospitalCode、hospitalName、tickets
 
 ---
 
@@ -320,7 +320,7 @@ tickets通常由API网关系统颁发，示例流程：
 curl -X POST "https://api-gateway.hospital.com/auth/getTickets" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "appKey": "your_app_key",
     "appSecret": "your_app_secret"
   }'
@@ -336,7 +336,7 @@ curl -X POST "https://api-gateway.hospital.com/auth/getTickets" \
 curl -X POST "http://localhost:8080/api/invoice/list" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "patientId": "123456"

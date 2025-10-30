@@ -12,7 +12,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
-| hospitalId | String | 是 | 医院ID（API网关验证） | "H001" |
+| hospitalCode | String | 是 | 医院编码（API网关验证） | "H001" |
 | hospitalName | String | 是 | 医院名称（API网关验证） | "北京协和医院" |
 | tickets | String | 是 | API网关身份验证票据 | "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." |
 | patientId | String | 是 | 患者ID | "123456" |
@@ -27,7 +27,7 @@
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "patientId": "123456",
@@ -97,7 +97,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
-| hospitalId | String | 是 | 医院ID（API网关验证） | "H001" |
+| hospitalCode | String | 是 | 医院编码（API网关验证） | "H001" |
 | hospitalName | String | 是 | 医院名称（API网关验证） | "北京协和医院" |
 | tickets | String | 是 | API网关身份验证票据 | "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." |
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
@@ -107,7 +107,7 @@
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "invoiceId": "INV20240115001",
@@ -260,7 +260,7 @@
 
 | 参数名 | 类型 | 必填 | 说明 | 示例值 |
 |--------|------|------|------|--------|
-| hospitalId | String | 是 | 医院ID（API网关验证） | "H001" |
+| hospitalCode | String | 是 | 医院编码（API网关验证） | "H001" |
 | hospitalName | String | 是 | 医院名称（API网关验证） | "北京协和医院" |
 | tickets | String | 是 | API网关身份验证票据 | "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." |
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
@@ -272,7 +272,7 @@
 
 ```json
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "invoiceId": "INV20240115001",
@@ -323,14 +323,14 @@
 |--------|------|------|------|--------|
 | invoiceId | String | 是 | 发票唯一标识ID | "INV20240115001" |
 | patientId | String | 是 | 患者ID（用于权限校验） | "123456" |
-| hospitalId | String | 是 | 医院ID（API网关验证） | "H001" |
+| hospitalCode | String | 是 | 医院编码（API网关验证） | "H001" |
 | hospitalName | String | 是 | 医院名称（API网关验证） | "北京协和医院" |
 | tickets | String | 是 | API网关身份验证票据 | "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." |
 
 ### 4.3 请求示例
 
 ```
-GET /api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalId=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+GET /api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalCode=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
 ### 4.4 响应说明
@@ -435,7 +435,7 @@ curl -X POST "https://api.example.com/api/invoice/list" \
   -H "Authorization: Bearer your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "patientId": "123456",
@@ -452,7 +452,7 @@ curl -X POST "https://api.example.com/api/invoice/detail" \
   -H "Authorization: Bearer your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "invoiceId": "INV20240115001",
@@ -467,7 +467,7 @@ curl -X POST "https://api.example.com/api/invoice/sendEmail" \
   -H "Authorization: Bearer your_token_here" \
   -H "Content-Type: application/json" \
   -d '{
-    "hospitalId": "H001",
+    "hospitalCode": "H001",
     "hospitalName": "北京协和医院",
     "tickets": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
     "invoiceId": "INV20240115001",
@@ -479,7 +479,7 @@ curl -X POST "https://api.example.com/api/invoice/sendEmail" \
 ### 9.4 下载发票
 
 ```bash
-curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalId=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
+curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalCode=H001&hospitalName=北京协和医院&tickets=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Authorization: Bearer your_token_here" \
   --output invoice.pdf
 ```
@@ -490,7 +490,7 @@ curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV202401150
 
 | 版本号 | 更新日期 | 更新内容 | 更新人 |
 |--------|----------|----------|--------|
-| v1.1.0 | 2025-10-30 | 新增API网关身份验证参数：hospitalId、hospitalName、tickets（必填） | Kevin |
+| v1.1.0 | 2025-10-30 | 新增API网关身份验证参数：hospitalCode、hospitalName、tickets（必填） | Kevin |
 | v1.0.0 | 2025-10-23 | 初始版本，包含基础发票功能 | - |
 
 ---

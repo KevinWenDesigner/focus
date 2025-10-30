@@ -201,7 +201,7 @@ simple-start.cmd
 
 | 参数名 | 类型 | 必填 | 说明 |
 |--------|------|------|------|
-| hospitalId | String | 是 | 医院ID，标识请求来源的医院 |
+| hospitalCode | String | 是 | 医院编码，标识请求来源的医院 |
 | hospitalName | String | 是 | 医院名称 |
 | tickets | String | 是 | API网关身份验证票据 |
 
@@ -215,7 +215,7 @@ POST http://localhost:8080/api/invoice/list
 Content-Type: application/json
 
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "your_api_gateway_ticket_here",
   "patientId": "123456",
@@ -258,7 +258,7 @@ POST http://localhost:8080/api/invoice/detail
 Content-Type: application/json
 
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "your_api_gateway_ticket_here",
   "invoiceId": "INV20240115001",
@@ -274,7 +274,7 @@ POST http://localhost:8080/api/invoice/sendEmail
 Content-Type: application/json
 
 {
-  "hospitalId": "H001",
+  "hospitalCode": "H001",
   "hospitalName": "北京协和医院",
   "tickets": "your_api_gateway_ticket_here",
   "invoiceId": "INV20240115001",
@@ -287,7 +287,7 @@ Content-Type: application/json
 
 **请求**：
 ```
-GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalId=H001&hospitalName=北京协和医院&tickets=your_api_gateway_ticket_here
+GET http://localhost:8080/api/invoice/download?invoiceId=INV20240115001&patientId=123456&hospitalCode=H001&hospitalName=北京协和医院&tickets=your_api_gateway_ticket_here
 ```
 
 **注意**：下载接口使用GET请求，所有参数（包括网关参数）都通过URL查询参数传递。
@@ -364,7 +364,7 @@ String name = new String(rs.getBytes("PATIENT_NAME"), "GBK");
 
 ### 1. API网关身份验证（新增）
 所有接口都必须携带以下三个参数进行网关验证：
-- **hospitalId**：医院唯一标识，用于标识请求来源
+- **hospitalCode**：医院编码，用于标识请求来源
 - **hospitalName**：医院名称，用于审计和日志记录
 - **tickets**：API网关颁发的身份验证票据，用于验证请求合法性
 
@@ -379,8 +379,8 @@ String name = new String(rs.getBytes("PATIENT_NAME"), "GBK");
 
 **注意事项**：
 - tickets有时效性，过期后需重新申请
-- tickets与hospitalId绑定，不能跨医院使用
-- 所有请求都会记录hospitalId用于审计追踪
+- tickets与hospitalCode绑定，不能跨医院使用
+- 所有请求都会记录hospitalCode用于审计追踪
 
 ### 2. 用户身份认证
 所有接口都需要在请求头中携带Token：
@@ -568,7 +568,7 @@ public class InvoiceServiceTest {
 ### v1.1.0 (2025-10-30)
 - ✅ **新增API网关身份验证功能**
   - 新增BaseRequest基础请求类
-  - 添加hospitalId、hospitalName、tickets三个必需参数
+  - 添加hospitalCode、hospitalName、tickets三个必需参数
   - 所有请求类继承BaseRequest
   - Controller中添加网关参数验证方法
   - 更新所有接口文档和示例

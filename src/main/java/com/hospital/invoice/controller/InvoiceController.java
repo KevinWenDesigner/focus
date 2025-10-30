@@ -23,7 +23,7 @@ import java.util.List;
  * 处理所有与电子发票相关的HTTP请求
  * 
  * 注意：
- * 1. 所有接口需要在请求体中包含API网关验证参数：hospitalId、hospitalName、tickets
+ * 1. 所有接口需要在请求体中包含API网关验证参数：hospitalCode、hospitalName、tickets
  * 2. 所有接口需要在请求头中携带用户认证Token（Authorization: Bearer {token}）
  * 3. 实际使用时需要添加认证拦截器或过滤器来验证Token
  */
@@ -47,8 +47,8 @@ public class InvoiceController {
      * @return 验证失败返回错误信息，验证通过返回null
      */
     private String validateGatewayParams(com.hospital.invoice.dto.request.BaseRequest request, String errorMessage) {
-        if (request.getHospitalId() == null || request.getHospitalId().trim().isEmpty()) {
-            return "医院ID不能为空";
+        if (request.getHospitalCode() == null || request.getHospitalCode().trim().isEmpty()) {
+            return "医院编码不能为空";
         }
         if (request.getHospitalName() == null || request.getHospitalName().trim().isEmpty()) {
             return "医院名称不能为空";
@@ -57,7 +57,7 @@ public class InvoiceController {
             return "API网关票据不能为空";
         }
         // TODO: 实际应用中，这里需要调用网关服务验证tickets的合法性
-        // boolean isValid = gatewayService.validateTickets(request.getTickets(), request.getHospitalId());
+        // boolean isValid = gatewayService.validateTickets(request.getTickets(), request.getHospitalCode());
         // if (!isValid) {
         //     return "API网关票据验证失败";
         // }
@@ -244,7 +244,7 @@ public class InvoiceController {
      * 
      * @param invoiceId 发票ID（URL参数）
      * @param patientId 患者ID（URL参数，用于权限校验）
-     * @param hospitalId 医院ID（URL参数，必填）
+     * @param hospitalCode 医院编码（URL参数，必填）
      * @param hospitalName 医院名称（URL参数，必填）
      * @param tickets API网关票据（URL参数，必填）
      * @return PDF文件流或错误信息
@@ -253,13 +253,13 @@ public class InvoiceController {
     public ResponseEntity<?> downloadInvoice(
             @RequestParam("invoiceId") String invoiceId,
             @RequestParam("patientId") String patientId,
-            @RequestParam("hospitalId") String hospitalId,
+            @RequestParam("hospitalCode") String hospitalCode,
             @RequestParam("hospitalName") String hospitalName,
             @RequestParam("tickets") String tickets) {
         try {
             // 创建请求对象用于参数验证
             InvoiceDownloadRequest request = new InvoiceDownloadRequest(invoiceId, patientId);
-            request.setHospitalId(hospitalId);
+            request.setHospitalCode(hospitalCode);
             request.setHospitalName(hospitalName);
             request.setTickets(tickets);
             
