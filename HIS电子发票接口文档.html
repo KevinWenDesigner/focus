@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIS电子发票系统 HTTP接口文档</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+        }
+
+        h2 {
+            color: #34495e;
+            font-size: 26px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        h3 {
+            color: #555;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #666;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+        }
+
+        .api-info {
+            background: #ecf0f1;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .api-info p {
+            margin-bottom: 8px;
+        }
+
+        .method-get {
+            background: #27ae60;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .method-post {
+            background: #e67e22;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-required {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .badge-optional {
+            background: #95a5a6;
+            color: white;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 40px 0;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HIS电子发票系统 HTTP接口文档</h1>
+
+        <div class="toc">
+            <h2>目录</h2>
+            <ul>
+                <li><a href="#api1">1. 发票列表查询接口</a></li>
+                <li><a href="#api2">2. 发票详情查询接口</a></li>
+                <li><a href="#api3">3. 发票发送邮箱接口</a></li>
+                <li><a href="#api4">4. 发票查看/下载接口</a></li>
+                <li><a href="#api5">5. 公共响应码说明</a></li>
+                <li><a href="#api6">6. 字段枚举值说明</a></li>
+                <li><a href="#api7">7. 接口调用注意事项</a></li>
+                <li><a href="#api8">8. 错误码说明</a></li>
+                <li><a href="#api9">9. 接口测试示例（cURL）</a></li>
+                <li><a href="#api10">10. 版本历史</a></li>
+            </ul>
+        </div>
+
+        <h2 id="api1">1. 发票列表查询接口</h2>
+
+        <h3>1.1 接口信息</h3>
+        <div class="api-info">
+            <p><strong>接口名称</strong>: 查询电子发票列表</p>
+            <p><strong>接口路径</strong>: <code>/api/invoice/list</code></p>
+            <p><strong>请求方式</strong>: <span class="method-get">GET</span> 或 <span class="method-post">POST</span></p>
+            <p><strong>接口描述</strong>: 根据条件查询用户的电子发票列表</p>
+        </div>
+
+        <h3>1.2 请求参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>必填</th>
+                    <th>说明</th>
+                    <th>示例值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>userId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>用户ID</td>
+                    <td>"123456"</td>
+                </tr>
+                <tr>
+                    <td>patientName</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>患者姓名</td>
+                    <td>"唐谢关"</td>
+                </tr>
+                <tr>
+                    <td>phoneNumber</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>手机号码</td>
+                    <td>"13800138000"</td>
+                </tr>
+                <tr>
+                    <td>startDate</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>搜索开始日期，格式：yyyy-MM-dd</td>
+                    <td>"2023-05-01"</td>
+                </tr>
+                <tr>
+                    <td>endDate</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>搜索结束日期，格式：yyyy-MM-dd</td>
+                    <td>"2023-05-31"</td>
+                </tr>
+                <tr>
+                    <td>invoiceType</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>票据类型：OUTPATIENT-门诊，INPATIENT-住院，EXAMINATION-体检</td>
+                    <td>"OUTPATIENT"</td>
+                </tr>
+                <tr>
+                    <td>status</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>发票状态：ISSUED-已开票，PENDING-待开票，CANCELLED-已作废</td>
+                    <td>"ISSUED"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>1.3 请求示例</h3>
+        <pre><code>{
+  "userId": "123456",
+  "patientName": "唐谢关",
+  "phoneNumber": "13800138000",
+  "startDate": "2023-05-01",
+  "endDate": "2023-05-31",
+  "invoiceType": "OUTPATIENT",
+  "status": "ISSUED"
+}</code></pre>
+
+        <h3>1.4 响应参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>code</td>
+                    <td>Integer</td>
+                    <td>响应状态码，200-成功，其他-失败</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>String</td>
+                    <td>响应消息</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>Array</td>
+                    <td>发票列表数据</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceId</td>
+                    <td>String</td>
+                    <td>发票唯一标识ID</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceNo</td>
+                    <td>String</td>
+                    <td>发票号码</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceType</td>
+                    <td>String</td>
+                    <td>票据类型：OUTPATIENT-门诊，INPATIENT-住院，EXAMINATION-体检</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceTypeLabel</td>
+                    <td>String</td>
+                    <td>票据类型中文描述</td>
+                </tr>
+                <tr>
+                    <td>└─ amount</td>
+                    <td>String</td>
+                    <td>发票金额，单位：元</td>
+                </tr>
+                <tr>
+                    <td>└─ createTime</td>
+                    <td>String</td>
+                    <td>开票时间，格式：yyyy-MM-dd HH:mm:ss</td>
+                </tr>
+                <tr>
+                    <td>└─ displayTime</td>
+                    <td>String</td>
+                    <td>列表显示时间，格式：yyyy-MM-dd HH:mm</td>
+                </tr>
+                <tr>
+                    <td>└─ status</td>
+                    <td>String</td>
+                    <td>发票状态：ISSUED-已开票，PENDING-待开票，CANCELLED-已作废</td>
+                </tr>
+                <tr>
+                    <td>└─ statusLabel</td>
+                    <td>String</td>
+                    <td>发票状态中文描述</td>
+                </tr>
+                <tr>
+                    <td>└─ patientName</td>
+                    <td>String</td>
+                    <td>患者姓名</td>
+                </tr>
+                <tr>
+                    <td>└─ phoneNumber</td>
+                    <td>String</td>
+                    <td>手机号码（脱敏）</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>1.5 响应示例</h3>
+        <pre><code>{
+  "code": 200,
+  "message": "查询成功",
+  "data": [
+    {
+      "invoiceId": "INV20230515001",
+      "invoiceNo": "00123456",
+      "invoiceType": "OUTPATIENT",
+      "invoiceTypeLabel": "门诊",
+      "amount": "298.50",
+      "createTime": "2023-05-15 14:30:00",
+      "displayTime": "2023-05-15 14:30",
+      "status": "ISSUED",
+      "statusLabel": "已开票",
+      "patientName": "唐谢关",
+      "phoneNumber": "6103**********0515"
+    }
+  ]
+}</code></pre>
+
+        <hr>
+
+        <h2 id="api2">2. 发票详情查询接口</h2>
+
+        <h3>2.1 接口信息</h3>
+        <div class="api-info">
+            <p><strong>接口名称</strong>: 查询电子发票详情</p>
+            <p><strong>接口路径</strong>: <code>/api/invoice/detail</code></p>
+            <p><strong>请求方式</strong>: <span class="method-get">GET</span> 或 <span class="method-post">POST</span></p>
+            <p><strong>接口描述</strong>: 根据发票ID查询电子发票详细信息</p>
+        </div>
+
+        <h3>2.2 请求参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>必填</th>
+                    <th>说明</th>
+                    <th>示例值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>invoiceId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>发票唯一标识ID</td>
+                    <td>"INV20240115001"</td>
+                </tr>
+                <tr>
+                    <td>userId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>用户ID（用于权限校验）</td>
+                    <td>"123456"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.3 请求示例</h3>
+        <pre><code>{
+  "invoiceId": "INV20240115001",
+  "userId": "123456"
+}</code></pre>
+
+        <h3>2.4 响应参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>code</td>
+                    <td>Integer</td>
+                    <td>响应状态码，200-成功，其他-失败</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>String</td>
+                    <td>响应消息</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>Object</td>
+                    <td>发票详情数据</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceId</td>
+                    <td>String</td>
+                    <td>发票唯一标识ID</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceNo</td>
+                    <td>String</td>
+                    <td>发票号码（完整号码）</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceType</td>
+                    <td>String</td>
+                    <td>票据类型：OUTPATIENT-门诊，INPATIENT-住院，EXAMINATION-体检</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceTypeLabel</td>
+                    <td>String</td>
+                    <td>票据类型中文描述</td>
+                </tr>
+                <tr>
+                    <td>└─ amount</td>
+                    <td>String</td>
+                    <td>发票金额，单位：元</td>
+                </tr>
+                <tr>
+                    <td>└─ createTime</td>
+                    <td>String</td>
+                    <td>开票时间，格式：yyyy-MM-dd HH:mm:ss</td>
+                </tr>
+                <tr>
+                    <td>└─ status</td>
+                    <td>String</td>
+                    <td>发票状态：ISSUED-已开票，PENDING-待开票，CANCELLED-已作废</td>
+                </tr>
+                <tr>
+                    <td>└─ statusLabel</td>
+                    <td>String</td>
+                    <td>发票状态中文描述</td>
+                </tr>
+                <tr>
+                    <td>└─ patientName</td>
+                    <td>String</td>
+                    <td>患者姓名</td>
+                </tr>
+                <tr>
+                    <td>└─ phoneNumber</td>
+                    <td>String</td>
+                    <td>患者手机号码</td>
+                </tr>
+                <tr>
+                    <td>└─ idCard</td>
+                    <td>String</td>
+                    <td>患者身份证号（脱敏）</td>
+                </tr>
+                <tr>
+                    <td>└─ businessDate</td>
+                    <td>String</td>
+                    <td>业务日期：门诊-就诊日期，住院-出院日期，体检-体检日期，格式：yyyy-MM-dd</td>
+                </tr>
+                <tr>
+                    <td>└─ deptOrPackage</td>
+                    <td>String</td>
+                    <td>科室或套餐信息：门诊-就诊科室，住院-出院科室，体检-体检套餐</td>
+                </tr>
+                <tr>
+                    <td>└─ invoiceCode</td>
+                    <td>String</td>
+                    <td>发票代码</td>
+                </tr>
+                <tr>
+                    <td>└─ machineCode</td>
+                    <td>String</td>
+                    <td>机器码</td>
+                </tr>
+                <tr>
+                    <td>└─ checkCode</td>
+                    <td>String</td>
+                    <td>校验码</td>
+                </tr>
+                <tr>
+                    <td>└─ pdfUrl</td>
+                    <td>String</td>
+                    <td>电子发票PDF文件下载地址</td>
+                </tr>
+                <tr>
+                    <td>└─ qrCodeUrl</td>
+                    <td>String</td>
+                    <td>发票二维码图片地址</td>
+                </tr>
+                <tr>
+                    <td>└─ totalAmount</td>
+                    <td>String</td>
+                    <td>总金额</td>
+                </tr>
+                <tr>
+                    <td>└─ selfPayAmount</td>
+                    <td>String</td>
+                    <td>自付金额</td>
+                </tr>
+                <tr>
+                    <td>└─ insuranceAmount</td>
+                    <td>String</td>
+                    <td>医保支付金额</td>
+                </tr>
+                <tr>
+                    <td>└─ remark</td>
+                    <td>String</td>
+                    <td>备注信息</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2.5 响应示例</h3>
+
+        <h4>2.5.1 门诊发票示例</h4>
+        <pre><code>{
+  "code": 200,
+  "message": "查询成功",
+  "data": {
+    "invoiceId": "INV20240115001",
+    "invoiceNo": "00123456789",
+    "invoiceType": "OUTPATIENT",
+    "invoiceTypeLabel": "门诊",
+    "amount": "128.50",
+    "createTime": "2024-01-15 10:30:00",
+    "status": "ISSUED",
+    "statusLabel": "已开票",
+    "patientName": "唐谢关",
+    "phoneNumber": "13800138000",
+    "idCard": "610***********0515",
+    "businessDate": "2024-01-15",
+    "deptOrPackage": "内科",
+    "invoiceCode": "044001900111",
+    "machineCode": "499098765432",
+    "checkCode": "12345",
+    "pdfUrl": "https://example.com/invoice/INV20240115001.pdf",
+    "qrCodeUrl": "https://example.com/invoice/qrcode/INV20240115001.png",
+    "totalAmount": "128.50",
+    "selfPayAmount": "128.50",
+    "insuranceAmount": "0.00",
+    "remark": ""
+  }
+}</code></pre>
+
+        <h4>2.5.2 住院发票示例</h4>
+        <pre><code>{
+  "code": 200,
+  "message": "查询成功",
+  "data": {
+    "invoiceId": "INV20240120002",
+    "invoiceNo": "00123456790",
+    "invoiceType": "INPATIENT",
+    "invoiceTypeLabel": "住院",
+    "amount": "5680.00",
+    "createTime": "2024-01-20 15:20:00",
+    "status": "ISSUED",
+    "statusLabel": "已开票",
+    "patientName": "张三",
+    "phoneNumber": "13900139000",
+    "idCard": "110***********1234",
+    "businessDate": "2024-01-20",
+    "deptOrPackage": "骨科",
+    "invoiceCode": "044001900112",
+    "machineCode": "499098765433",
+    "checkCode": "23456",
+    "pdfUrl": "https://example.com/invoice/INV20240120002.pdf",
+    "qrCodeUrl": "https://example.com/invoice/qrcode/INV20240120002.png",
+    "totalAmount": "5680.00",
+    "selfPayAmount": "2340.00",
+    "insuranceAmount": "3340.00",
+    "remark": ""
+  }
+}</code></pre>
+
+        <h4>2.5.3 体检发票示例</h4>
+        <pre><code>{
+  "code": 200,
+  "message": "查询成功",
+  "data": {
+    "invoiceId": "INV20240125003",
+    "invoiceNo": "00123456791",
+    "invoiceType": "EXAMINATION",
+    "invoiceTypeLabel": "体检",
+    "amount": "860.00",
+    "createTime": "2024-01-25 09:15:00",
+    "status": "ISSUED",
+    "statusLabel": "已开票",
+    "patientName": "李四",
+    "phoneNumber": "13700137000",
+    "idCard": "320***********5678",
+    "businessDate": "2024-01-25",
+    "deptOrPackage": "高级体检套餐A",
+    "invoiceCode": "044001900113",
+    "machineCode": "499098765434",
+    "checkCode": "34567",
+    "pdfUrl": "https://example.com/invoice/INV20240125003.pdf",
+    "qrCodeUrl": "https://example.com/invoice/qrcode/INV20240125003.png",
+    "totalAmount": "860.00",
+    "selfPayAmount": "860.00",
+    "insuranceAmount": "0.00",
+    "remark": ""
+  }
+}</code></pre>
+
+        <hr>
+
+        <h2 id="api3">3. 发票发送邮箱接口</h2>
+
+        <h3>3.1 接口信息</h3>
+        <div class="api-info">
+            <p><strong>接口名称</strong>: 发送电子发票到邮箱</p>
+            <p><strong>接口路径</strong>: <code>/api/invoice/sendEmail</code></p>
+            <p><strong>请求方式</strong>: <span class="method-post">POST</span></p>
+            <p><strong>接口描述</strong>: 将电子发票PDF文件发送到指定邮箱</p>
+        </div>
+
+        <h3>3.2 请求参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>必填</th>
+                    <th>说明</th>
+                    <th>示例值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>invoiceId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>发票唯一标识ID</td>
+                    <td>"INV20240115001"</td>
+                </tr>
+                <tr>
+                    <td>userId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>用户ID（用于权限校验）</td>
+                    <td>"123456"</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>接收邮箱地址</td>
+                    <td>"user@example.com"</td>
+                </tr>
+                <tr>
+                    <td>emailTitle</td>
+                    <td>String</td>
+                    <td><span class="badge badge-optional">否</span></td>
+                    <td>邮件标题，默认："电子发票"</td>
+                    <td>"您的电子发票"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.3 请求示例</h3>
+        <pre><code>{
+  "invoiceId": "INV20240115001",
+  "userId": "123456",
+  "email": "user@example.com",
+  "emailTitle": "您的电子发票"
+}</code></pre>
+
+        <h3>3.4 响应参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>code</td>
+                    <td>Integer</td>
+                    <td>响应状态码，200-成功，其他-失败</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>String</td>
+                    <td>响应消息</td>
+                </tr>
+                <tr>
+                    <td>data</td>
+                    <td>Object</td>
+                    <td>响应数据</td>
+                </tr>
+                <tr>
+                    <td>└─ sendStatus</td>
+                    <td>String</td>
+                    <td>发送状态：SUCCESS-成功，FAILED-失败</td>
+                </tr>
+                <tr>
+                    <td>└─ sendTime</td>
+                    <td>String</td>
+                    <td>发送时间，格式：yyyy-MM-dd HH:mm:ss</td>
+                </tr>
+                <tr>
+                    <td>└─ email</td>
+                    <td>String</td>
+                    <td>接收邮箱地址</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>3.5 响应示例</h3>
+        <pre><code>{
+  "code": 200,
+  "message": "发送成功",
+  "data": {
+    "sendStatus": "SUCCESS",
+    "sendTime": "2024-01-15 10:35:00",
+    "email": "user@example.com"
+  }
+}</code></pre>
+
+        <hr>
+
+        <h2 id="api4">4. 发票查看/下载接口</h2>
+
+        <h3>4.1 接口信息</h3>
+        <div class="api-info">
+            <p><strong>接口名称</strong>: 下载电子发票PDF</p>
+            <p><strong>接口路径</strong>: <code>/api/invoice/download</code></p>
+            <p><strong>请求方式</strong>: <span class="method-get">GET</span></p>
+            <p><strong>接口描述</strong>: 获取电子发票PDF文件</p>
+        </div>
+
+        <h3>4.2 请求参数</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>参数名</th>
+                    <th>类型</th>
+                    <th>必填</th>
+                    <th>说明</th>
+                    <th>示例值</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>invoiceId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>发票唯一标识ID</td>
+                    <td>"INV20240115001"</td>
+                </tr>
+                <tr>
+                    <td>userId</td>
+                    <td>String</td>
+                    <td><span class="badge badge-required">是</span></td>
+                    <td>用户ID（用于权限校验）</td>
+                    <td>"123456"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.3 请求示例</h3>
+        <pre><code>GET /api/invoice/download?invoiceId=INV20240115001&userId=123456</code></pre>
+
+        <h3>4.4 响应说明</h3>
+        <ul>
+            <li><strong>成功</strong>: 返回PDF文件流，Content-Type: application/pdf</li>
+            <li><strong>失败</strong>: 返回JSON格式错误信息</li>
+        </ul>
+        <pre><code>{
+  "code": 404,
+  "message": "发票不存在或无权访问",
+  "data": null
+}</code></pre>
+
+        <hr>
+
+        <h2 id="api5">5. 公共响应码说明</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>状态码</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>200</td>
+                    <td>请求成功</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>请求参数错误</td>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>未授权，需要登录</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>无权访问该资源</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>请求的资源不存在</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>服务器内部错误</td>
+                </tr>
+                <tr>
+                    <td>503</td>
+                    <td>服务暂时不可用</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="api6">6. 字段枚举值说明</h2>
+
+        <h3>6.1 票据类型（invoiceType）</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>枚举值</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>OUTPATIENT</td>
+                    <td>门诊</td>
+                </tr>
+                <tr>
+                    <td>INPATIENT</td>
+                    <td>住院</td>
+                </tr>
+                <tr>
+                    <td>EXAMINATION</td>
+                    <td>体检</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 发票状态（status）</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>枚举值</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ISSUED</td>
+                    <td>已开票</td>
+                </tr>
+                <tr>
+                    <td>PENDING</td>
+                    <td>待开票</td>
+                </tr>
+                <tr>
+                    <td>CANCELLED</td>
+                    <td>已作废</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="api7">7. 接口调用注意事项</h2>
+        <ol>
+            <li>
+                <strong>认证授权</strong>: 所有接口需要在请求头中携带用户认证Token
+                <pre><code>Authorization: Bearer {token}</code></pre>
+            </li>
+            <li><strong>时间格式</strong>: 所有时间字段统一使用北京时间（GMT+8）</li>
+            <li><strong>金额格式</strong>: 所有金额字段保留两位小数，单位为元</li>
+            <li><strong>手机号脱敏</strong>: 列表显示时手机号中间位进行脱敏处理</li>
+            <li><strong>身份证脱敏</strong>: 身份证号中间位进行脱敏处理</li>
+            <li><strong>请求频率</strong>: 建议限制同一用户每秒最多请求10次</li>
+            <li><strong>文件大小</strong>: PDF文件大小限制在5MB以内</li>
+            <li><strong>邮箱格式</strong>: 邮箱地址需符合标准邮箱格式验证</li>
+            <li><strong>跨域处理</strong>: 接口支持CORS跨域请求</li>
+        </ol>
+
+        <hr>
+
+        <h2 id="api8">8. 错误码说明</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>错误码</th>
+                    <th>说明</th>
+                    <th>解决方案</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10001</td>
+                    <td>用户未登录</td>
+                    <td>请先登录</td>
+                </tr>
+                <tr>
+                    <td>10002</td>
+                    <td>Token已过期</td>
+                    <td>请重新登录</td>
+                </tr>
+                <tr>
+                    <td>10003</td>
+                    <td>无权访问</td>
+                    <td>检查权限配置</td>
+                </tr>
+                <tr>
+                    <td>20001</td>
+                    <td>发票不存在</td>
+                    <td>检查invoiceId是否正确</td>
+                </tr>
+                <tr>
+                    <td>20002</td>
+                    <td>发票已作废</td>
+                    <td>该发票已作废，无法操作</td>
+                </tr>
+                <tr>
+                    <td>20003</td>
+                    <td>发票PDF生成失败</td>
+                    <td>请联系管理员</td>
+                </tr>
+                <tr>
+                    <td>30001</td>
+                    <td>邮箱格式错误</td>
+                    <td>请输入正确的邮箱地址</td>
+                </tr>
+                <tr>
+                    <td>30002</td>
+                    <td>邮件发送失败</td>
+                    <td>请稍后重试或联系管理员</td>
+                </tr>
+                <tr>
+                    <td>40001</td>
+                    <td>参数缺失</td>
+                    <td>检查必填参数</td>
+                </tr>
+                <tr>
+                    <td>40002</td>
+                    <td>参数格式错误</td>
+                    <td>检查参数格式是否正确</td>
+                </tr>
+                <tr>
+                    <td>50001</td>
+                    <td>系统异常</td>
+                    <td>请联系管理员</td>
+                </tr>
+                <tr>
+                    <td>50002</td>
+                    <td>数据库异常</td>
+                    <td>请稍后重试</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 id="api9">9. 接口测试示例（cURL）</h2>
+
+        <h3>9.1 查询发票列表</h3>
+        <pre><code>curl -X POST "https://api.example.com/api/invoice/list" \
+  -H "Authorization: Bearer your_token_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "userId": "123456",
+    "startDate": "2023-05-01",
+    "endDate": "2023-05-31",
+    "invoiceType": "OUTPATIENT"
+  }'</code></pre>
+
+        <h3>9.2 查询发票详情</h3>
+        <pre><code>curl -X POST "https://api.example.com/api/invoice/detail" \
+  -H "Authorization: Bearer your_token_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "invoiceId": "INV20240115001",
+    "userId": "123456"
+  }'</code></pre>
+
+        <h3>9.3 发送到邮箱</h3>
+        <pre><code>curl -X POST "https://api.example.com/api/invoice/sendEmail" \
+  -H "Authorization: Bearer your_token_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "invoiceId": "INV20240115001",
+    "userId": "123456",
+    "email": "user@example.com"
+  }'</code></pre>
+
+        <h3>9.4 下载发票</h3>
+        <pre><code>curl -X GET "https://api.example.com/api/invoice/download?invoiceId=INV20240115001&userId=123456" \
+  -H "Authorization: Bearer your_token_here" \
+  --output invoice.pdf</code></pre>
+
+        <hr>
+
+        <h2 id="api10">10. 版本历史</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>版本号</th>
+                    <th>更新日期</th>
+                    <th>更新内容</th>
+                    <th>更新人</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>v1.0.0</td>
+                    <td>2025-10-23</td>
+                    <td>初始版本，包含基础发票功能</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p><strong>文档维护</strong>: Kevin</p>
+            <p><strong>最后更新</strong>: 2025-10-23</p>
+            <p><strong>联系方式</strong>: 22233329@qq.com</p>
+        </div>
+    </div>
+</body>
+</html>
+
